@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7d9e8">
+<title>A Little Surprise For You 💗</title>
+<style>
+:root{--pink:#f6c7dc;--deep:#9d4778;--purple:#8b78bd;--ink:#553b50;--cream:#fff9fc}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink);background:radial-gradient(circle at top left,#fff 0,#fce7f1 40%,#e9e1ff 100%);min-height:100vh;overflow-x:hidden}
+.wrap{width:min(760px,92%);margin:auto;padding:28px 0 60px}.card{background:#ffffffd9;border:1px solid #fff;border-radius:26px;padding:25px;box-shadow:0 16px 50px #9d47781a;margin:18px 0;backdrop-filter:blur(8px)}
+.hero{text-align:center;padding:42px 24px}.eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--deep);font-weight:700}.hero h1{font-family:Georgia,serif;font-size:clamp(2.5rem,9vw,4.8rem);line-height:1.05;margin:12px 0;color:#8d4c78}.hero p{max-width:470px;margin:0 auto 24px;line-height:1.7}.sparkle{font-size:2rem}.btn{border:0;border-radius:999px;padding:13px 21px;background:linear-gradient(120deg,#d77eae,#9b83ca);color:white;font-weight:700;font-size:1rem;cursor:pointer;box-shadow:0 8px 20px #9d477833}.btn.secondary{background:#fff;color:var(--deep);border:1px solid #edc9dd;box-shadow:none}.btn:active{transform:scale(.98)}h2{font-family:Georgia,serif;color:#8d4c78;margin:0 0 12px;font-size:1.8rem}.muted{color:#896f83;line-height:1.6}.choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.choice{border:1px solid #efd2e2;background:#fff8fc;border-radius:18px;padding:17px 12px;text-align:left;color:var(--ink);cursor:pointer;font-size:1rem}.choice strong{display:block;margin-bottom:4px}.choice small{color:#987d91}.choice.selected{outline:2px solid #bb78a7;background:#fff0f7}.hidden{display:none!important}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}.letter{font-family:Georgia,serif;font-size:1.15rem;line-height:1.9;white-space:pre-wrap;background:#fff8fc;border-radius:18px;padding:20px}.memory-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.memory{min-height:130px;border:2px dashed #e8bfd6;border-radius:18px;display:grid;place-items:center;text-align:center;padding:12px;background:#fff8fc;overflow:hidden}.memory img{width:100%;height:150px;object-fit:cover;border-radius:12px}.gift{font-size:4rem;text-align:center;cursor:pointer;transition:transform .3s}.gift:hover{transform:rotate(-8deg) scale(1.08)}input[type=text],input[type=file],select{max-width:100%;padding:10px;border:1px solid #e7c8da;border-radius:12px;background:white;color:var(--ink)}.progress{height:7px;background:#f2dce8;border-radius:10px;overflow:hidden;margin:14px 0}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#d77eae,#9b83ca);transition:width .3s}.footer{text-align:center;color:#987d91;font-size:.85rem;margin-top:25px}.heart{position:fixed;pointer-events:none;animation:float 4s linear forwards;z-index:5}@keyframes float{to{transform:translateY(-110vh) rotate(30deg);opacity:0}}.tiny{font-size:.82rem;color:#987d91}
+@media(max-width:520px){.card{padding:19px}.choices{grid-template-columns:1fr}.hero{padding:32px 17px}.memory-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<section class="card hero" id="welcome">
+<div class="sparkle">✨ 💗 ✨</div><div class="eyebrow">A tiny surprise, made just for you</div>
+<h1>Happy Birthday,<br><span id="herNameTitle">Someone Special</span>!</h1>
+<p>I made a little corner of the internet just for your special day. Ready to open your surprises?</p>
+<button class="btn" onclick="startSurprise()">Open your surprise 💌</button>
+</section>
+
+<section class="card hidden" id="main">
+<div class="eyebrow">Chapter 01 · Your little world</div><h2>First, choose your mood ✨</h2>
+<p class="muted">Aaj ka mood kya hai? Pick one and let the surprise match your vibe.</p>
+<div class="choices" id="moods">
+<button class="choice" onclick="pickMood(this,'Cute')"><strong>🧸 Cute</strong><small>Soft, sweet & adorable</small></button>
+<button class="choice" onclick="pickMood(this,'Romantic')"><strong>💗 Romantic</strong><small>A little extra love</small></button>
+<button class="choice" onclick="pickMood(this,'Funny')"><strong>😜 Funny</strong><small>Smile first, questions later</small></button>
+<button class="choice" onclick="pickMood(this,'Emotional')"><strong>🥹 Emotional</strong><small>A note from the heart</small></button>
+</div>
+<div class="progress"><span id="progress"></span></div>
+</section>
+
+<section class="card hidden" id="surprises">
+<div class="eyebrow">Chapter 02 · Pick your surprise</div><h2>What should we open next? 🎁</h2>
+<p class="muted">You are in charge. Choose any card.</p>
+<div class="choices">
+<button class="choice" onclick="showPanel('letter')"><strong>💌 A little letter</strong><small>Words picked just for you</small></button>
+<button class="choice" onclick="showPanel('music')"><strong>🎵 Your song</strong><small>Add and play a favourite track</small></button>
+<button class="choice" onclick="showPanel('memories')"><strong>📸 Memory corner</strong><small>Add photos to this little album</small></button>
+<button class="choice" onclick="showPanel('gift')"><strong>🎁 Mystery gift</strong><small>Tap to reveal</small></button>
+<button class="choice" onclick="showPanel('quiz')"><strong>❓ Cute questions</strong><small>A tiny birthday quiz</small></button>
+<button class="choice" onclick="showPanel('secret')"><strong>🔐 Secret message</strong><small>One last little surprise</small></button>
+</div>
+</section>
+
+<section class="card hidden panel" id="letter"><div class="eyebrow">Just for you</div><h2>A little birthday letter 💌</h2>
+<div class="letter" id="letterText">Happy Birthday! 💗
+
+I hope your day is filled with the kind of happiness that stays long after the candles are blown out. Keep smiling, keep shining, and never forget how special you are.
+
+Wishing you beautiful moments, unexpected reasons to laugh, and a year that treats you kindly. ✨
+
+With lots of good wishes,
+Someone who wanted to make you smile 💗</div>
+<p class="tiny">You can personalise this letter by editing the text in the HTML file.</p><button class="btn secondary" onclick="backToChoices()">Back to surprises</button></section>
+
+<section class="card hidden panel" id="music"><div class="eyebrow">A song for the moment</div><h2>Press play 🎧</h2><p class="muted">Choose an audio file from your phone to play a song. The file stays on your device.</p>
+<input type="file" id="audioFile" accept="audio/*"><audio id="audio" controls style="width:100%;margin-top:15px"></audio>
+<button class="btn secondary" onclick="backToChoices()">Back to surprises</button></section>
+
+<section class="card hidden panel" id="memories"><div class="eyebrow">Little moments</div><h2>Our memory corner 📸</h2><p class="muted">Choose photos from your device to preview them here.</p>
+<input type="file" id="photoFiles" accept="image/*" multiple><div class="memory-grid" id="memoryGrid" style="margin-top:15px"><div class="memory">🌷<br> A lovely memory</div><div class="memory">✨<br> A happy moment</div></div>
+<button class="btn secondary" onclick="backToChoices()" style="margin-top:15px">Back to surprises</button></section>
+
+<section class="card hidden panel" id="gift"><div class="eyebrow">A mystery waiting</div><h2>Tap the gift 🎁</h2><div class="gift" onclick="revealGift()">🎁</div><p id="giftText" class="muted" style="text-align:center">I wonder what's inside...</p>
+<button class="btn secondary" onclick="backToChoices()">Back to surprises</button></section>
+
+<section class="card hidden panel" id="quiz"><div class="eyebrow">Just for fun</div><h2>Birthday mini quiz 😋</h2><p id="question" class="muted">Pick the birthday essential:</p>
+<div class="choices" id="answers"><button class="choice" onclick="answer(this,'Cake')">🍰 Cake</button><button class="choice" onclick="answer(this,'Flowers')">💐 Flowers</button><button class="choice" onclick="answer(this,'Both')">Both, obviously!</button><button class="choice" onclick="answer(this,'Sleep')">😴 Extra sleep</button></div>
+<p id="quizResult" class="muted"></p><button class="btn secondary" onclick="backToChoices()">Back to surprises</button></section>
+
+<section class="card hidden panel" id="secret"><div class="eyebrow">One last thing</div><h2>A tiny secret 🔐</h2><p class="muted">Enter the little birthday code: hint — the day of your birthday (DD).</p>
+<div class="row"><input type="text" id="secretCode" placeholder="Enter 2 digits" maxlength="2"><button class="btn" onclick="unlockSecret()">Unlock 💗</button></div><p id="secretText" class="muted"></p><button class="btn secondary" onclick="backToChoices()">Back to surprises</button></section>
+
+<section class="card hidden" id="ending" style="text-align:center"><div class="sparkle">🎂 🌸 🎉</div><h2>That's not all...</h2><p class="muted">May this new year bring you endless reasons to smile. Happy Birthday once again! 💗</p><button class="btn" onclick="sprinkleHearts()">Make it rain hearts 💕</button></section>
+<div class="footer">Made with a little extra care · Happy Birthday 💗</div>
+</div>
+<script>
+const birthdayDay = "DD"; // Replace DD with her birthday day, e.g. "13"
+let selectedMood = "";
+function startSurprise(){document.getElementById('welcome').classList.add('hidden');['main','surprises','ending'].forEach(id=>document.getElementById(id).classList.remove('hidden'));sprinkleHearts();}
+function pickMood(el,mood){document.querySelectorAll('#moods .choice').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');selectedMood=mood;document.getElementById('progress').style.width='100%';}
+function showPanel(id){document.getElementById('surprises').classList.add('hidden');document.querySelectorAll('.panel').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');}
+function backToChoices(){document.querySelectorAll('.panel').forEach(x=>x.classList.add('hidden'));document.getElementById('surprises').classList.remove('hidden');}
+function revealGift(){document.querySelector('#gift .gift').textContent='💝';document.getElementById('giftText').textContent='Your gift is a wish: may life surprise you with beautiful things, kind people, and happy little moments. You deserve it! ✨';}
+function answer(el,choice){document.querySelectorAll('#answers .choice').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');document.getElementById('quizResult').textContent='Excellent choice! 😄 Birthday rules: your choice is always right today. 💗';}
+function unlockSecret(){const val=document.getElementById('secretCode').value.trim();document.getElementById('secretText').textContent=(birthdayDay!=="DD"&&val===birthdayDay)?'You found it! 💗 Never stop being your wonderful self. You deserve all the happiness in the world. ✨':'Not quite! Try the birthday day in two digits. 😊';}
+document.getElementById('audioFile').addEventListener('change',e=>{const f=e.target.files[0];if(f){const a=document.getElementById('audio');a.src=URL.createObjectURL(f);a.play();}});
+document.getElementById('photoFiles').addEventListener('change',e=>{const grid=document.getElementById('memoryGrid');grid.innerHTML='';[...e.target.files].forEach(file=>{const url=URL.createObjectURL(file);const box=document.createElement('div');box.className='memory';const img=document.createElement('img');img.src=url;img.alt='Memory photo';box.appendChild(img);grid.appendChild(box);});});
+function sprinkleHearts(){for(let i=0;i<22;i++){const h=document.createElement('div');h.className='heart';h.textContent=['💗','💕','✨','🌸'][Math.floor(Math.random()*4)];h.style.left=Math.random()*100+'vw';h.style.bottom='-30px';h.style.fontSize=(16+Math.random()*20)+'px';h.style.animationDuration=(2.5+Math.random()*2)+'s';document.body.appendChild(h);setTimeout(()=>h.remove(),5000);}}
+</script>
+</body></html>
